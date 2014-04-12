@@ -3,11 +3,17 @@ html(lang="en")
     head
         title= title
         script(type='text/javascript' src='https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
-        link(rel='stylesheet', href='/public/css/style.css', type='text/css')
+        link(rel='stylesheet', href='/css/style.css', type='text/css')
     body
         h1= title
         #maths
             .equ.
                 \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]
             .equ.
-                \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]
+                \[\frac{1}{\pi} = \frac{2\sqrt{2}}{9801} \sum^\infty_{k=0} \frac{(4k)!(1103+26390k)}{(k!)^4 396^{4k}}\]
+        #mathslink
+            .equlink
+                a(href='#') beautiful!
+            .equlink
+                a(href='#') beautiful!
+
