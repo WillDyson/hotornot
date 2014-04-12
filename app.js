@@ -29,7 +29,8 @@ app.use(cookieParser());
 app.use(require('less-middleware')({
     dest: path.join(__dirname, 'public/css'),
     src: path.join(__dirname, 'private/less'),
-    prefix: '/css'
+    prefix: '/css',
+    compress: true
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
