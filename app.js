@@ -5,6 +5,9 @@
 var path = require('path');
 var express = require('express');
 var logger = require('morgan');
+var favicon = require('static-favicon');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 // import routes
 var site = require('./routes/site');
@@ -12,17 +15,25 @@ var site = require('./routes/site');
 // initialize app
 var app = express();
 
-// configuration
-app.use(logger('dev'));
-app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
-app.use(express.static(path.join(__dirname, 'public')));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// set routes
-app.get('/', site.index);
+// configuration
+app.use(favicon());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+
+app.use(require('less-middleware')({
+    dest: path.join(__dirname, 'public/css'),
+    src: path.join(__dirname, 'private/less'),
+    prefix: '/css'
+}));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app
 
+module.exports = app;

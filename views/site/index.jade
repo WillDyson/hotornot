@@ -3,7 +3,11 @@ html(lang="en")
     head
         title= title
         script(type='text/javascript' src='https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+        link(rel='stylesheet', href='/public/css/style.css', type='text/css')
     body
         h1= title
-        p.
-            \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]
+        #maths
+            .equ.
+                \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]
+            .equ.
+                \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]

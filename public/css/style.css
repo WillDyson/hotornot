@@ -1,0 +1,11 @@
+#maths {
+  padding: 0px;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.equ {
+  float: left;
+  width: 200px;
+  margin: 0px;
+}
