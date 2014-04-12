@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 // import routes
-var site = require('./routes/site');
+var router = require('./routes/router');
 
 // initialize app
 var app = express();
@@ -34,6 +34,6 @@ app.use(require('less-middleware')({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-module.exports = app
+app.use(router);
 
 module.exports = app;
