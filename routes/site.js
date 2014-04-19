@@ -12,7 +12,11 @@ router.get('/:id1,:id2', function(req, res) {
     var id2 = req.params.id2;
 
     equations.getFirst(function(err, result) {
-        res.send(result.name);
+        res.render('site/index', {
+            title: 'Test Page',
+            equ1: result,
+            equ2: result
+        });
     });
 });
 

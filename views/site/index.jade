@@ -7,13 +7,11 @@ html(lang="en")
     body
         h1= title
         #maths
-            .equ.
-                \[e^{ \pm i\theta } = \cos \theta \pm i\sin \theta\]
-            .equ.
-                \[\frac{1}{\pi} = \frac{2\sqrt{2}}{9801} \sum^\infty_{k=0} \frac{(4k)!(1103+26390k)}{(k!)^4 396^{4k}}\]
+            .equ= ('\\[' + equ1.latex + '\\]')
+            .equ= ('\\[' + equ2.latex + '\\]')
         #mathslink
             .equlink
-                a(href='#') beautiful!
+                a(href='##{equ1.id}') beautiful!
             .equlink
-                a(href='#') beautiful!
+                a(href='##{equ2.id}') beautiful!
 
