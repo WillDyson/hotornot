@@ -10,7 +10,7 @@ connection.connect();
 this.getFirst = function(callback) {
     connection.query("SELECT * FROM Equation LIMIT 1", function(err, rows, fields) {
         if(err) callback(err, null);
-        callback(null, rows[0]);
+        callback(err, rows[0]);
     });
 }
 
