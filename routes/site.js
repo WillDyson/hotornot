@@ -8,17 +8,21 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id1,:id2', function(req, res) {
+
     var id1 = req.params.id1;
     var id2 = req.params.id2;
 
-    equations.getFirst(function(err, result) {
+    if(isNaN(id1) || isNaN(id2)) throw "Given id is not a number!";
+
+    equations.getPairFromId(id1, id2, function(err, row1, row2) {
         if(err) throw err;
         res.render('site/index', {
             title: 'Test Page',
-            equ1: result,
-            equ2: result
+            equ1: row1,
+            equ2: row2
         });
     });
+
 });
 
 module.exports = router;
