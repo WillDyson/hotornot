@@ -43,4 +43,10 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
+app.use(function(req, res, next) {
+    console.log(req.url + ' not found!');
+    res.status(404);
+    res.render('error');
+});
+
 module.exports = app;
