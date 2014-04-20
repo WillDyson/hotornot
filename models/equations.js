@@ -32,6 +32,15 @@ this.getPairFromId = function(id1, id2, callback) {
     });
 };
 
+this.getRandomPair = function(callback) {
+    connection.query("SELECT * FROM Equation ORDER BY RAND() LIMIT 2", function(err, rows, fields) {
+        if(err) return callback(err, null, null);
+        if(rows == undefined || rows.length < 2) return callback(new Error("No rows selected from Equation!"), null, null);
+
+        callback(null, rows[0], rows[1]);
+    });
+};
+
 this.updateScores = function(id1, id2, winner) {
     if(winner != 1 && winner != 2) return;
 

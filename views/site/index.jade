@@ -11,7 +11,11 @@ html(lang="en")
             .equ= ('\\[' + equ2.latex + '\\]')
         #mathslink
             .equlink
-                a(href='##{equ1.id}') beautiful!
+                a(href='/vote/#{equ1.id}/beats/#{equ2.id}') beautiful!
             .equlink
-                a(href='##{equ2.id}') beautiful!
+                a(href='/vote/#{equ2.id}/beats/#{equ1.id}') beautiful!
+        br
+        #debug
+            div= equ1.score
+            div= equ2.score
 
