@@ -13,6 +13,7 @@ router.get('/:id1,:id2', function(req, res) {
     var id2 = req.params.id2;
 
     if(isNaN(id1) || isNaN(id2)) throw "Given id is not a number!";
+    if(id1 == id2) throw "Given ids are the same!";
 
     equations.getPairFromId(id1, id2, function(err, row1, row2) {
         if(err) throw err;
