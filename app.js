@@ -37,4 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(router);
 
+app.use(function(err, req, res, next) {
+    console.error(err);
+    res.status(500);
+    res.render('error');
+});
+
 module.exports = app;
