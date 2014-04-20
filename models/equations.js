@@ -7,15 +7,6 @@ var connection = mysql.createConnection ({
 });
 connection.connect();
 
-this.getFirst = function(callback) {
-    connection.query("SELECT * FROM Equation LIMIT 1", function(err, rows, fields) {
-        if(err) return callback(err, null);
-        if(rows == undefined || rows.length == 0) return callback(new Error("No rows selected from Equation!"), null);
-
-        callback(null, rows[0]);
-    });
-};
-
 this.getFromId = function(id, callback) {
     var id = parseInt(id);
 
