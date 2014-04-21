@@ -108,4 +108,12 @@ this.verifyToken = function(token, id1, id2, callback) {
 
 };
 
+this.top10 = function(callback) {
+    connection.query("SELECT * FROM Equation ORDER BY score DESC LIMIT 10", function(err, rows, fields) {
+        if(err || rows == undefined || rows.length == 0) return callback(new Error("Failed to verify vote token"), null);
+
+        callback(null, rows);
+    });
+};
+
 module.exports = this;

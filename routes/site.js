@@ -20,6 +20,17 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/leaderboard', function(req, res, next) {
+
+        equations.top10(function(err, leaders) {
+            res.render('site/leaderboard', {
+                title: 'Test Page',
+                leaders: leaders
+            });
+        });
+
+});
+
 router.get('/vote/:id1/beats/:id2/:token', function(req, res, next) {
 
     var id1 = req.params.id1;
