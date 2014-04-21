@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 
     equations.getRandomPairWithToken(function(err, row1, row2, tok) {
         if(err) {
+            err.status = 500;
             return next(err);
         } else {
             res.render('site/index', {
@@ -23,7 +24,10 @@ router.get('/', function(req, res, next) {
 router.get('/leaderboard', function(req, res, next) {
 
         equations.top10(function(err, leaders) {
-            if(err) return next(err);
+            if(err) {
+                err.status = 500;
+                return next(err);
+            }
 
             res.render('site/leaderboard', {
                 title: 'Leaderboard',
@@ -40,7 +44,10 @@ router.get('/vote/:id1/:id2/:token', function(req, res, next) {
     var token = req.params.token;
 
     equations.verifyToken(token, id1, id2, function(err) {
-        if(err) return next(err);
+        if(err) {
+            err.status = 500;
+            return next(err);
+        }
 
         equations.updateScores(id1, id2, 1);
         res.redirect('/');

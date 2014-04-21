@@ -38,15 +38,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
 
 app.use(function(err, req, res, next) {
-    console.error(err);
-    res.status(500);
-    res.render('error');
+    console.log(err);
+    if(err.status == 404) {
+        res.status(404);
+        res.render('error', {
+            status: 404,
+            error: 'File Not Found'
+        });
+    } else {
+        res.status(500);
+        res.render('error', {
+            status: 500,
+            error: 'Server Error'
+        });
+    }
 });
 
 app.use(function(req, res, next) {
     console.log(req.url + ' not found!');
     res.status(404);
-    res.render('error');
+    res.render('error', {
+        status: 404,
+        error: 'File Not Found'
+    });
 });
 
 module.exports = app;
