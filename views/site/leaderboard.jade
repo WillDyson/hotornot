@@ -1,17 +1,14 @@
-doctype html
-html(lang="en")
-    head
-        title= title
-        script(type='text/javascript' src='https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
-        link(rel='stylesheet', href='/css/style.css', type='text/css')
-    body
-        table
-            thead
+extends layout
+
+block content
+    table#leaderTable
+        thead
+            tr
+                th Name
+                th Rating
+        tbody
+            each row in leaders
                 tr
-                    th Name
-                    th Rating
-            tbody
-                each row in leaders
-                    tr
-                        th= row.name
-                        th= row.score
+                    th= row.name
+                    th= row.score
+

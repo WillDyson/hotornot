@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
             return next(err);
         } else {
             res.render('site/index', {
-                title: 'Test Page',
+                title: 'HotOrNot',
                 equ1: row1,
                 equ2: row2,
                 token: tok
@@ -26,7 +26,7 @@ router.get('/leaderboard', function(req, res, next) {
             if(err) return next(err);
 
             res.render('site/leaderboard', {
-                title: 'Test Page',
+                title: 'Leaderboard',
                 leaders: leaders
             });
         });

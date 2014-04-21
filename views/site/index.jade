@@ -1,21 +1,15 @@
-doctype html
-html(lang="en")
-    head
-        title= title
-        script(type='text/javascript' src='https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
-        link(rel='stylesheet', href='/css/style.css', type='text/css')
-    body
-        h1= title
-        #maths
-            .equ= ('\\[' + equ1.latex + '\\]')
-            .equ= ('\\[' + equ2.latex + '\\]')
-        #mathslink
-            .equlink
-                a(href='/vote/#{equ1.id}/#{equ2.id}/#{token}') beautiful!
-            .equlink
-                a(href='/vote/#{equ2.id}/#{equ1.id}/#{token}') beautiful!
-        br
-        #debug
-            div= equ1.score
-            div= equ2.score
+extends layout
+
+block header
+    script(type='text/javascript' src='https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+
+block content
+    #maths
+        .equ= ('\\[' + equ1.latex + '\\]')
+        .equ= ('\\[' + equ2.latex + '\\]')
+    #mathslink
+        .equlink
+            a(href='/vote/#{equ1.id}/#{equ2.id}/#{token}') beautiful!
+        .equlink
+            a(href='/vote/#{equ2.id}/#{equ1.id}/#{token}') beautiful!
 

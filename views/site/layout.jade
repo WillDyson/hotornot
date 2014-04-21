@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        title= title
+        link(rel='stylesheet', href='/css/style.css', type='text/css')
+        block header
+    body
+        #header
+            h1#titleHeader= title
+            ul#nav
+                li
+                    a(href='/') Main Page
+                li
+                    a(href='/leaderboard') Leaderboard
+            #navLine
+        #content
+            block content
+
