@@ -5,28 +5,33 @@ var equations = require('../models/equations');
 
 router.get('/', function(req, res, next) {
 
-    equations.getRandomPair(function(err, row1, row2) {
+    equations.getRandomPairWithToken(function(err, row1, row2, tok) {
         if(err) {
             return next(err);
         } else {
             res.render('site/index', {
                 title: 'Test Page',
                 equ1: row1,
-                equ2: row2
+                equ2: row2,
+                token: tok
             });
         }
     });
 
 });
 
-router.get('/vote/:id1/beats/:id2', function(req, res, next) {
+router.get('/vote/:id1/beats/:id2/:token', function(req, res, next) {
 
     var id1 = req.params.id1;
     var id2 = req.params.id2;
+    var token = req.params.token;
 
-    equations.updateScores(id1, id2, 1);
+    equations.verifyToken(token, id1, id2, function(err) {
+        if(err) return next(err);
 
-    res.redirect('/');
+        equations.updateScores(id1, id2, 1);
+        res.redirect('/');
+    });
 
 });
 

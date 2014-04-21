@@ -1,4 +1,5 @@
 var elo = require('../helpers/elo');
+var crypto = require('crypto');
 var mysql = require('mysql');
 
 var connection = mysql.createConnection ({
@@ -41,6 +42,18 @@ this.getRandomPair = function(callback) {
     });
 };
 
+this.getRandomPairWithToken = function(callback) {
+    this.getRandomPair(function(err, row1, row2) {
+        if(err) return callback(err, null, null, null);
+
+        this.generateToken(row1.id, row2.id, function(err, token) {
+            if(err) return callback(err, null, null, null);
+
+            callback(null, row1, row2, token);
+        });
+    }.bind(this));
+}
+
 this.updateScores = function(id1, id2, winner) {
     if(winner != 1 && winner != 2) return;
 
@@ -61,6 +74,38 @@ this.updateScores = function(id1, id2, winner) {
             });
 
     });
+};
+
+this.generateToken = function(id1, id2, callback) {
+
+    var token = crypto.randomBytes(10).toString('hex').substring(0,20);
+    var id1 = parseInt(id1);
+    var id2 = parseInt(id2);
+
+    connection.query("INSERT INTO VoteToken (token, id1, id2, expire) VALUES (?, ?, ?, CURRENT_TIMESTAMP + INTERVAL 10 MINUTE)", [token, id1, id2])
+        .on('error', function(err) {
+                return callback(new Error("Failed to generate vote token"), null);
+        })
+        .on('result', function(results) {
+                return callback(null, token);
+        });
+
+};
+
+this.verifyToken = function(token, id1, id2, callback) {
+
+    var id1 = parseInt(id1);
+    var id2 = parseInt(id2);
+
+    connection.query("SELECT id, id1, id2 FROM VoteToken WHERE deleted=0 AND token=? AND expire > CURRENT_TIMESTAMP", [token], function(err, rows, fields) {
+        if(err || rows == undefined || rows.length == 0) return callback(new Error("Failed to verify vote token"));
+
+        if((rows[0].id1 == id1 && rows[0].id2 == id2) || (rows[0].id1 == id2 && rows[0].id2 == id1)) callback(null);
+        else callback(new Error("Failed to verify vote token"));
+
+        connection.query("UPDATE VoteToken SET deleted=1 WHERE id=?", [rows[0].id]);
+    });
+
 };
 
 module.exports = this;
